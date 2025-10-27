@@ -4,8 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ - Agência de Lives</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css"> 
+
+    <style type="text/tailwindcss">
+        /* Exemplo de Estilos Customizados que precisam do @apply */
+        .gradient-text {
+            /* Cria o gradiente de texto usando cores do Tailwind */
+            background-image: linear-gradient(90deg, #7c3aed, #06b6d4, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .card-hover {
+            /* Efeito de brilho/sombra ao passar o mouse */
+            @apply transition-all duration-300 transform hover:scale-[1.03] hover:shadow-2xl hover:shadow-cyan-500/50;
+        }
+
+        .neon-glow {
+            /* Efeito de brilho neon leve */
+            @apply shadow-xl shadow-purple-900/40;
+        }
+
+        .accordion-header {
+            /* Estilo para cabeçalho do acordeão */
+            @apply cursor-pointer transition-all duration-300 hover:bg-black/10;
+        }
+
+        .accordion-content {
+            /* Oculta o conteúdo por padrão (Será controlado pelo JS) */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease-in-out;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        
+        /* Ajuste de padding/margem para conteúdo expandido */
+        .accordion-content.expanded {
+            max-height: 1000px; /* Valor alto para acomodar o conteúdo */
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        
+        .accordion-content.expanded > div {
+            /* Garante que o padding interno seja aplicado quando expandido */
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        
+        /* Fundo especial para a seção de Bônus */
+        .bonus-table {
+            @apply bg-gradient-to-br from-yellow-900/40 to-red-900/40 rounded-xl border border-yellow-500/30 shadow-2xl;
+        }
+
+        /* Ícone do acordeão */
+        .accordion-icon svg {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .accordion-icon.rotated svg {
+            transform: rotate(45deg); /* Gira o sinal de "+" para "x" ou "-" */
+        }
+    </style>
 </head>
 <body class="min-h-full bg-transparent text-white font-sans">
     <main class="container mx-auto px-3 sm:px-4 py-6 sm:py-8 max-w-4xl">
@@ -57,111 +119,115 @@
         </section>
 
         <div class="space-y-4">
-            <section class="bg-gradient-to-r from-purple-900/30 to-cyan-900/30 rounded-xl md:rounded-2xl border border-purple-500/30 neon-glow overflow-hidden">
-                <div class="accordion-header p-4 sm:p-5 md:p-6 flex items-center justify-between" onclick="toggleAccordion('section1')">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 mr-2 sm:mr-3 flex items-center justify-center">
-                            <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
-                                <rect x="4" y="6" width="16" height="12" rx="2" stroke="#8B5CF6" stroke-width="2" fill="none"/>
-                                <path d="M7 10H17M7 14H14" stroke="#06B6D4" stroke-width="2" stroke-linecap="round"/>
-                                <circle cx="18" cy="4" r="2" fill="#10B981"/>
-                                <path d="M17 4L17.5 4.5L19 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <section>
+                <div class="bg-gradient-to-r from-purple-900/30 to-cyan-900/30 rounded-xl md:rounded-2xl border border-purple-500/30 neon-glow overflow-hidden">
+                    <div class="accordion-header p-4 sm:p-5 md:p-6 flex items-center justify-between" onclick="toggleAccordion('content1', 'icon1')">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 mr-2 sm:mr-3 flex items-center justify-center">
+                                <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
+                                    <rect x="4" y="6" width="16" height="12" rx="2" stroke="#8B5CF6" stroke-width="2" fill="none"/>
+                                    <path d="M7 10H17M7 14H14" stroke="#06B6D4" stroke-width="2" stroke-linecap="round"/>
+                                    <circle cx="18" cy="4" r="2" fill="#10B981"/>
+                                    <path d="M17 4L17.5 4.5L19 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-lg sm:text-xl md:text-2xl font-bold gradient-text">1. Processo de Seleção</h2>
+                        </div>
+                        <div class="accordion-icon w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-purple-600/30 rounded-full border border-purple-400/50" id="icon1">
+                            <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5">
+                                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                             </svg>
                         </div>
-                        <h2 class="text-lg sm:text-xl md:text-2xl font-bold gradient-text">1. Processo de Seleção</h2>
                     </div>
-                    <div class="accordion-icon w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-purple-600/30 rounded-full border border-purple-400/50" id="icon1">
-                        <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5">
-                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                </div>
-                
-                <div class="accordion-content" id="content1">
-                    <div class="px-4 sm:px-5 md:px-6 pb-4 sm:pb-5 md:pb-6 space-y-3 sm:space-y-4">
-                        <div class="bg-black/30 p-3 sm:p-4 rounded-lg sm:rounded-xl border-l-4 border-purple-500">
-                            <h3 class="font-semibold text-purple-300 mb-2 text-sm sm:text-base">Como funciona o processo de seleção?</h3>
-                            <p class="text-gray-300 text-sm sm:text-base leading-relaxed">O processo é <span class="text-cyan-400 font-semibold">100% gratuito e imediato</span>. Basta preencher nosso formulário e nossa equipe entrará em contato em até 24h. Se aprovado(a), você receberá suporte completo para começar suas lives.</p>
-                        </div>
-                        
-                        <div class="bg-black/30 p-3 sm:p-4 rounded-lg sm:rounded-xl border-l-4 border-cyan-500">
-                            <h3 class="font-semibold text-cyan-300 mb-2 text-sm sm:text-base">Quanto custa para ser agenciado?</h3>
-                            <p class="text-gray-300 text-sm sm:text-base leading-relaxed">Ser agenciado é <span class="text-purple-400 font-semibold">totalmente grátis</span>, com acompanhamento personalizado focado em maximizar seus ganhos.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="bg-gradient-to-r from-cyan-900/30 to-purple-900/30 rounded-xl md:rounded-2xl border border-cyan-500/30 neon-glow overflow-hidden">
-                <div class="accordion-header p-4 sm:p-5 md:p-6 flex items-center justify-between" onclick="toggleAccordion('section2')">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 mr-2 sm:mr-3 flex items-center justify-center">
-                            <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
-                                <circle cx="12" cy="12" r="8" stroke="#10B981" stroke-width="2" fill="none"/>
-                                <path d="M12 8V16M9 10H15M9 14H15" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M16 6L20 10M4 14L8 18M8 6L4 10M20 14L16 18" stroke="#06B6D4" stroke-width="1.5" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                        <h2 class="text-lg sm:text-xl md:text-2xl font-bold gradient-text">2. Ganhos e Pagamentos</h2>
-                    </div>
-                    <div class="accordion-icon w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-cyan-600/30 rounded-full border border-cyan-400/50" id="icon2">
-                        <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5">
-                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                </div>
-                
-                <div class="accordion-content" id="content2">
-                    <div class="px-6 pb-6 space-y-6">
-                        <div class="space-y-4">
-                            <div class="bg-black/30 p-4 rounded-xl border-l-4 border-green-500">
-                                <h3 class="font-semibold text-green-300 mb-2">Quanto tempo leva para começar a ganhar nas lives?</h3>
-                                <p class="text-gray-300">Você pode começar a ganhar <span class="text-green-400 font-semibold">desde a primeira live</span>. Muitos criadores atingem suas primeiras metas ainda no primeiro mês.</p>
+                    
+                    <div class="accordion-content" id="content1">
+                        <div class="px-4 sm:px-5 md:px-6 pb-4 sm:pb-5 md:pb-6 space-y-3 sm:space-y-4">
+                            <div class="bg-black/30 p-3 sm:p-4 rounded-lg sm:rounded-xl border-l-4 border-purple-500">
+                                <h3 class="font-semibold text-purple-300 mb-2 text-sm sm:text-base">Como funciona o processo de seleção?</h3>
+                                <p class="text-gray-300 text-sm sm:text-base leading-relaxed">O processo é <span class="text-cyan-400 font-semibold">100% gratuito e imediato</span>. Basta preencher nosso formulário e nossa equipe entrará em contato em até 24h. Se aprovado(a), você receberá suporte completo para começar suas lives.</p>
                             </div>
                             
-                            <div class="bg-black/30 p-4 rounded-xl border-l-4 border-blue-500">
-                                <h3 class="font-semibold text-blue-300 mb-2">Como recebo os pagamentos?</h3>
-                                <p class="text-gray-300">Os pagamentos são feitos em <span class="text-blue-400 font-semibold">dólar diretamente pelo aplicativo</span>. Você pode sacar via Pix convertido em real no mesmo dia, com saques diários disponíveis.</p>
+                            <div class="bg-black/30 p-3 sm:p-4 rounded-lg sm:rounded-xl border-l-4 border-cyan-500">
+                                <h3 class="font-semibold text-cyan-300 mb-2 text-sm sm:text-base">Quanto custa para ser agenciado?</h3>
+                                <p class="text-gray-300 text-sm sm:text-base leading-relaxed">Ser agenciado é <span class="text-purple-400 font-semibold">totalmente grátis</span>, com acompanhamento personalizado focado em maximizar seus ganhos.</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
 
-                        <div class="bonus-table p-4 sm:p-5 md:p-6 rounded-lg sm:rounded-xl">
-                            <h3 class="font-semibold text-yellow-300 mb-3 sm:mb-4 flex items-center text-sm sm:text-base">
-                                <div class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 mr-2 flex items-center justify-center">
-                                    <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 sm:w-6 sm:h-6">
-                                        <path d="M12 2L18 8L12 14L6 8L12 2Z" fill="#F59E0B" stroke="#EC4899" stroke-width="1"/>
-                                        <path d="M12 2L18 8M12 2L6 8M12 14L18 8M12 14L6 8" stroke="#EF4444" stroke-width="1"/>
-                                    </svg>
+            <section>
+                <div class="bg-gradient-to-r from-cyan-900/30 to-purple-900/30 rounded-xl md:rounded-2xl border border-cyan-500/30 neon-glow overflow-hidden">
+                    <div class="accordion-header p-4 sm:p-5 md:p-6 flex items-center justify-between" onclick="toggleAccordion('content2', 'icon2')">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 mr-2 sm:mr-3 flex items-center justify-center">
+                                <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
+                                    <circle cx="12" cy="12" r="8" stroke="#10B981" stroke-width="2" fill="none"/>
+                                    <path d="M12 8V16M9 10H15M9 14H15" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M16 6L20 10M4 14L8 18M8 6L4 10M20 14L16 18" stroke="#06B6D4" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-lg sm:text-xl md:text-2xl font-bold gradient-text">2. Ganhos e Pagamentos</h2>
+                        </div>
+                        <div class="accordion-icon w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-cyan-600/30 rounded-full border border-cyan-400/50" id="icon2">
+                            <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5">
+                                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-content" id="content2">
+                        <div class="px-6 pb-6 space-y-6">
+                            <div class="space-y-4">
+                                <div class="bg-black/30 p-4 rounded-xl border-l-4 border-green-500">
+                                    <h3 class="font-semibold text-green-300 mb-2">Quanto tempo leva para começar a ganhar nas lives?</h3>
+                                    <p class="text-gray-300">Você pode começar a ganhar <span class="text-green-400 font-semibold">desde a primeira live</span>. Muitos criadores atingem suas primeiras metas ainda no primeiro mês.</p>
                                 </div>
-                                Como são calculados os bônus?
-                            </h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                                <div class="diamond-card bg-gradient-to-br from-yellow-600/20 to-orange-600/20 p-3 sm:p-4 rounded-lg border border-yellow-500/30 text-center">
-                                    <div class="text-lg sm:text-xl md:text-2xl font-bold text-yellow-400 flex items-center justify-center gap-1 sm:gap-2">
-                                        200 
-                                        <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6">
-                                            <path d="M12 3L17 8L12 13L7 8L12 3Z" fill="#F59E0B" stroke="#F97316" stroke-width="1"/>
+                                
+                                <div class="bg-black/30 p-4 rounded-xl border-l-4 border-blue-500">
+                                    <h3 class="font-semibold text-blue-300 mb-2">Como recebo os pagamentos?</h3>
+                                    <p class="text-gray-300">Os pagamentos são feitos em <span class="text-blue-400 font-semibold">dólar diretamente pelo aplicativo</span>. Você pode sacar via Pix convertido em real no mesmo dia, com saques diários disponíveis.</p>
+                                </div>
+                            </div>
+
+                            <div class="bonus-table p-4 sm:p-5 md:p-6 rounded-lg sm:rounded-xl">
+                                <h3 class="font-semibold text-yellow-300 mb-3 sm:mb-4 flex items-center text-sm sm:text-base">
+                                    <div class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 mr-2 flex items-center justify-center">
+                                        <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 sm:w-6 sm:h-6">
+                                            <path d="M12 2L18 8L12 14L6 8L12 2Z" fill="#F59E0B" stroke="#EC4899" stroke-width="1"/>
+                                            <path d="M12 2L18 8M12 2L6 8M12 14L18 8M12 14L6 8" stroke="#EF4444" stroke-width="1"/>
                                         </svg>
                                     </div>
-                                    <div class="text-xs sm:text-sm text-gray-300">≈ US$ 1,00</div>
-                                </div>
-                                <div class="diamond-card bg-gradient-to-br from-orange-600/20 to-red-600/20 p-3 sm:p-4 rounded-lg border border-orange-500/30 text-center">
-                                    <div class="text-lg sm:text-xl md:text-2xl font-bold text-orange-400 flex items-center justify-center gap-1 sm:gap-2">
-                                        500 
-                                        <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6">
-                                            <path d="M12 3L17 8L12 13L7 8L12 3Z" fill="#F97316" stroke="#EF4444" stroke-width="1"/>
-                                        </svg>
+                                    Como são calculados os bônus?
+                                </h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                                    <div class="diamond-card bg-gradient-to-br from-yellow-600/20 to-orange-600/20 p-3 sm:p-4 rounded-lg border border-yellow-500/30 text-center">
+                                        <div class="text-lg sm:text-xl md:text-2xl font-bold text-yellow-400 flex items-center justify-center gap-1 sm:gap-2">
+                                            200 
+                                            <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6">
+                                                <path d="M12 3L17 8L12 13L7 8L12 3Z" fill="#F59E0B" stroke="#F97316" stroke-width="1"/>
+                                            </svg>
+                                        </div>
+                                        <div class="text-xs sm:text-sm text-gray-300">≈ US$ 1,00</div>
                                     </div>
-                                    <div class="text-xs sm:text-sm text-gray-300">≈ US$ 2,50</div>
-                                </div>
-                                <div class="diamond-card bg-gradient-to-br from-red-600/20 to-pink-600/20 p-3 sm:p-4 rounded-lg border border-red-500/30 text-center">
-                                    <div class="text-lg sm:text-xl md:text-2xl font-bold text-red-400 flex items-center justify-center gap-1 sm:gap-2">
-                                        1.000 
-                                        <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6">
-                                            <path d="M12 3L17 8L12 13L7 8L12 3Z" fill="#EF4444" stroke="#EC4899" stroke-width="1"/>
-                                        </svg>
+                                    <div class="diamond-card bg-gradient-to-br from-orange-600/20 to-red-600/20 p-3 sm:p-4 rounded-lg border border-orange-500/30 text-center">
+                                        <div class="text-lg sm:text-xl md:text-2xl font-bold text-orange-400 flex items-center justify-center gap-1 sm:gap-2">
+                                            500 
+                                            <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6">
+                                                <path d="M12 3L17 8L12 13L7 8L12 3Z" fill="#F97316" stroke="#EF4444" stroke-width="1"/>
+                                            </svg>
+                                        </div>
+                                        <div class="text-xs sm:text-sm text-gray-300">≈ US$ 2,50</div>
                                     </div>
-                                    <div class="text-xs sm:text-sm text-gray-300">≈ US$ 5,00</div>
+                                    <div class="diamond-card bg-gradient-to-br from-red-600/20 to-pink-600/20 p-3 sm:p-4 rounded-lg border border-red-500/30 text-center">
+                                        <div class="text-lg sm:text-xl md:text-2xl font-bold text-red-400 flex items-center justify-center gap-1 sm:gap-2">
+                                            1.000 
+                                            <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6">
+                                                <path d="M12 3L17 8L12 13L7 8L12 3Z" fill="#EF4444" stroke="#EC4899" stroke-width="1"/>
+                                            </svg>
+                                        </div>
+                                        <div class="text-xs sm:text-sm text-gray-300">≈ US$ 5,00</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -169,107 +235,111 @@
                 </div>
             </section>
 
-            <section class="bg-gradient-to-r from-purple-900/30 to-cyan-900/30 rounded-xl md:rounded-2xl border border-purple-500/30 neon-glow overflow-hidden">
-                <div class="accordion-header p-4 sm:p-5 md:p-6 flex items-center justify-between" onclick="toggleAccordion('section3')">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 mr-2 sm:mr-3 flex items-center justify-center">
-                            <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
-                                <path d="M12 2L20 7V17L12 22L4 17V7L12 2Z" stroke="#8B5CF6" stroke-width="2" fill="none"/>
-                                <circle cx="12" cy="12" r="4" fill="#06B6D4"/>
-                                <path d="M10 12L11 13L14 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <section>
+                <div class="bg-gradient-to-r from-purple-900/30 to-cyan-900/30 rounded-xl md:rounded-2xl border border-purple-500/30 neon-glow overflow-hidden">
+                    <div class="accordion-header p-4 sm:p-5 md:p-6 flex items-center justify-between" onclick="toggleAccordion('content3', 'icon3')">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 mr-2 sm:mr-3 flex items-center justify-center">
+                                <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
+                                    <path d="M12 2L20 7V17L12 22L4 17V7L12 2Z" stroke="#8B5CF6" stroke-width="2" fill="none"/>
+                                    <circle cx="12" cy="12" r="4" fill="#06B6D4"/>
+                                    <path d="M10 12L11 13L14 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-lg sm:text-xl md:text-2xl font-bold gradient-text">3. Suporte e Treinamento</h2>
+                        </div>
+                        <div class="accordion-icon w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-purple-600/30 rounded-full border border-purple-400/50" id="icon3">
+                            <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5">
+                                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                             </svg>
                         </div>
-                        <h2 class="text-lg sm:text-xl md:text-2xl font-bold gradient-text">3. Suporte e Treinamento</h2>
                     </div>
-                    <div class="accordion-icon w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-purple-600/30 rounded-full border border-purple-400/50" id="icon3">
-                        <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5">
-                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
+                    
+                    <div class="accordion-content" id="content3">
+                        <div class="px-4 sm:px-5 md:px-6 pb-4 sm:pb-5 md:pb-6">
+                            <div class="bg-black/30 p-3 sm:p-4 rounded-lg sm:rounded-xl border-l-4 border-purple-500">
+                                <h3 class="font-semibold text-purple-300 mb-3 sm:mb-4 text-sm sm:text-base">Qual suporte é oferecido?</h3>
+                                <p class="text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base leading-relaxed">Oferecemos suporte humano real e treinamento completo em vídeo, além de acompanhamento diário da sua evolução, com estatísticas atualizadas diretamente da plataforma.</p>
+                                
+                                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-3 sm:mt-4">
+                                    <div class="flex flex-col items-center text-center">
+                                        <div class="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 mb-2 flex items-center justify-center">
+                                            <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
+                                                <circle cx="12" cy="12" r="3" fill="#8B5CF6"/>
+                                                <path d="M12 1V5M12 19V23M4.22 4.22L6.34 6.34M17.66 17.66L19.78 19.78M1 12H5M19 12H23M4.22 19.78L6.34 17.66M17.66 6.34L19.78 4.22" stroke="#06B6D4" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                        </div>
+                                        <span class="text-xs sm:text-sm text-gray-400 leading-tight">Suporte Humano</span>
+                                    </div>
+                                    <div class="flex flex-col items-center text-center">
+                                        <div class="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 mb-2 flex items-center justify-center">
+                                            <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
+                                                <rect x="3" y="6" width="18" height="12" rx="2" stroke="#374151" stroke-width="2" fill="none"/>
+                                                <path d="M9 10L13 12L9 14V10Z" fill="#EF4444"/>
+                                                <circle cx="18" cy="8" r="2" fill="#EF4444"/>
+                                            </svg>
+                                        </div>
+                                        <span class="text-xs sm:text-sm text-gray-400 leading-tight">Vídeo Treinamento</span>
+                                    </div>
+                                    <div class="flex flex-col items-center text-center">
+                                        <div class="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 mb-2 flex items-center justify-center">
+                                            <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
+                                                <rect x="4" y="4" width="16" height="16" rx="2" stroke="#059669" stroke-width="2" fill="none"/>
+                                                <path d="M8 16V12M12 16V8M16 16V10" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                        </div>
+                                        <span class="text-xs sm:text-sm text-gray-400 leading-tight">Estatísticas</span>
+                                    </div>
+                                    <div class="flex flex-col items-center text-center">
+                                        <div class="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 mb-2 flex items-center justify-center">
+                                            <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
+                                                <rect x="4" y="6" width="16" height="12" rx="2" stroke="#7C3AED" stroke-width="2" fill="none"/>
+                                                <path d="M16 2V6M8 2V6M4 10H20" stroke="#A855F7" stroke-width="2" stroke-linecap="round"/>
+                                                <circle cx="9" cy="13" r="1" fill="#10B981"/>
+                                                <circle cx="15" cy="13" r="1" fill="#EF4444"/>
+                                            </svg>
+                                        </div>
+                                        <span class="text-xs sm:text-sm text-gray-400 leading-tight">Acompanhamento</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="accordion-content" id="content3">
-                    <div class="px-4 sm:px-5 md:px-6 pb-4 sm:pb-5 md:pb-6">
-                        <div class="bg-black/30 p-3 sm:p-4 rounded-lg sm:rounded-xl border-l-4 border-purple-500">
-                            <h3 class="font-semibold text-purple-300 mb-3 sm:mb-4 text-sm sm:text-base">Qual suporte é oferecido?</h3>
-                            <p class="text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base leading-relaxed">Oferecemos suporte humano real e treinamento completo em vídeo, além de acompanhamento diário da sua evolução, com estatísticas atualizadas diretamente da plataforma.</p>
+            </section>
+
+            <section>
+                <div class="bg-gradient-to-r from-cyan-900/30 to-purple-900/30 rounded-xl md:rounded-2xl border border-cyan-500/30 neon-glow overflow-hidden">
+                    <div class="accordion-header p-4 sm:p-5 md:p-6 flex items-center justify-between" onclick="toggleAccordion('content4', 'icon4')">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 mr-2 sm:mr-3 flex items-center justify-center">
+                                <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
+                                    <rect x="5" y="5" width="14" height="14" rx="2" stroke="#06B6D4" stroke-width="2" fill="none"/>
+                                    <path d="M9 12L11 14L15 10" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="18" cy="6" r="2" fill="#10B981"/>
+                                    <path d="M17 6L17.5 6.5L19 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-lg sm:text-xl md:text-2xl font-bold gradient-text">4. Requisitos</h2>
+                        </div>
+                        <div class="accordion-icon w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-cyan-600/30 rounded-full border border-cyan-400/50" id="icon4">
+                            <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5">
+                                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-content" id="content4">
+                        <div class="px-4 sm:px-5 md:px-6 pb-4 sm:pb-5 md:pb-6 space-y-3 sm:space-y-4">
+                            <div class="bg-black/30 p-3 sm:p-4 rounded-lg sm:rounded-xl border-l-4 border-red-500">
+                                <h3 class="font-semibold text-red-300 mb-2 text-sm sm:text-base">Qual a idade mínima para participar?</h3>
+                                <p class="text-gray-300 text-sm sm:text-base leading-relaxed">É necessário ter <span class="text-red-400 font-semibold">18 anos ou mais</span>. Não existe limite máximo — pessoas de todas as idades podem ter sucesso com nossos métodos.</p>
+                            </div>
                             
-                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-3 sm:mt-4">
-                                <div class="flex flex-col items-center text-center">
-                                    <div class="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 mb-2 flex items-center justify-center">
-                                        <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
-                                            <circle cx="12" cy="12" r="3" fill="#8B5CF6"/>
-                                            <path d="M12 1V5M12 19V23M4.22 4.22L6.34 6.34M17.66 17.66L19.78 19.78M1 12H5M19 12H23M4.22 19.78L6.34 17.66M17.66 6.34L19.78 4.22" stroke="#06B6D4" stroke-width="2" stroke-linecap="round"/>
-                                        </svg>
-                                    </div>
-                                    <span class="text-xs sm:text-sm text-gray-400 leading-tight">Suporte Humano</span>
-                                </div>
-                                <div class="flex flex-col items-center text-center">
-                                    <div class="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 mb-2 flex items-center justify-center">
-                                        <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
-                                            <rect x="3" y="6" width="18" height="12" rx="2" stroke="#374151" stroke-width="2" fill="none"/>
-                                            <path d="M9 10L13 12L9 14V10Z" fill="#EF4444"/>
-                                            <circle cx="18" cy="8" r="2" fill="#EF4444"/>
-                                        </svg>
-                                    </div>
-                                    <span class="text-xs sm:text-sm text-gray-400 leading-tight">Vídeo Treinamento</span>
-                                </div>
-                                <div class="flex flex-col items-center text-center">
-                                    <div class="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 mb-2 flex items-center justify-center">
-                                        <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
-                                            <rect x="4" y="4" width="16" height="16" rx="2" stroke="#059669" stroke-width="2" fill="none"/>
-                                            <path d="M8 16V12M12 16V8M16 16V10" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
-                                        </svg>
-                                    </div>
-                                    <span class="text-xs sm:text-sm text-gray-400 leading-tight">Estatísticas</span>
-                                </div>
-                                <div class="flex flex-col items-center text-center">
-                                    <div class="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 mb-2 flex items-center justify-center">
-                                        <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
-                                            <rect x="4" y="6" width="16" height="12" rx="2" stroke="#7C3AED" stroke-width="2" fill="none"/>
-                                            <path d="M16 2V6M8 2V6M4 10H20" stroke="#A855F7" stroke-width="2" stroke-linecap="round"/>
-                                            <circle cx="9" cy="13" r="1" fill="#10B981"/>
-                                            <circle cx="15" cy="13" r="1" fill="#EF4444"/>
-                                        </svg>
-                                    </div>
-                                    <span class="text-xs sm:text-sm text-gray-400 leading-tight">Acompanhamento</span>
-                                </div>
+                            <div class="bg-black/30 p-3 sm:p-4 rounded-lg sm:rounded-xl border-l-4 border-green-500">
+                                <h3 class="font-semibold text-green-300 mb-2 text-sm sm:text-base">Preciso ter muitos seguidores?</h3>
+                                <p class="text-gray-300 text-sm sm:text-base leading-relaxed"><span class="text-green-400 font-semibold">Não. Você pode começar do zero.</span> Seguidores e audiência crescem com o treinamento e consistência nas lives.</p>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="bg-gradient-to-r from-cyan-900/30 to-purple-900/30 rounded-xl md:rounded-2xl border border-cyan-500/30 neon-glow overflow-hidden">
-                <div class="accordion-header p-4 sm:p-5 md:p-6 flex items-center justify-between" onclick="toggleAccordion('section4')">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 mr-2 sm:mr-3 flex items-center justify-center">
-                            <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
-                                <rect x="5" y="5" width="14" height="14" rx="2" stroke="#06B6D4" stroke-width="2" fill="none"/>
-                                <path d="M9 12L11 14L15 10" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <circle cx="18" cy="6" r="2" fill="#10B981"/>
-                                <path d="M17 6L17.5 6.5L19 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h2 class="text-lg sm:text-xl md:text-2xl font-bold gradient-text">4. Requisitos</h2>
-                    </div>
-                    <div class="accordion-icon w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-cyan-600/30 rounded-full border border-cyan-400/50" id="icon4">
-                        <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4 sm:w-5 sm:h-5">
-                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                </div>
-                
-                <div class="accordion-content" id="content4">
-                    <div class="px-4 sm:px-5 md:px-6 pb-4 sm:pb-5 md:pb-6 space-y-3 sm:space-y-4">
-                        <div class="bg-black/30 p-3 sm:p-4 rounded-lg sm:rounded-xl border-l-4 border-red-500">
-                            <h3 class="font-semibold text-red-300 mb-2 text-sm sm:text-base">Qual a idade mínima para participar?</h3>
-                            <p class="text-gray-300 text-sm sm:text-base leading-relaxed">É necessário ter <span class="text-red-400 font-semibold">18 anos ou mais</span>. Não existe limite máximo — pessoas de todas as idades podem ter sucesso com nossos métodos.</p>
-                        </div>
-                        
-                        <div class="bg-black/30 p-3 sm:p-4 rounded-lg sm:rounded-xl border-l-4 border-green-500">
-                            <h3 class="font-semibold text-green-300 mb-2 text-sm sm:text-base">Preciso ter muitos seguidores?</h3>
-                            <p class="text-gray-300 text-sm sm:text-base leading-relaxed"><span class="text-green-400 font-semibold">Não. Você pode começar do zero.</span> Seguidores e audiência crescem com o treinamento e consistência nas lives.</p>
                         </div>
                     </div>
                 </div>
