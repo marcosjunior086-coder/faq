@@ -1,36 +1,58 @@
-function toggleAccordion(contentId, iconId) {
-    const content = document.getElementById(contentId);
-    const icon = document.getElementById(iconId);
+/**
+ * script.js
+ * Lógica para Acordeão (Accordion) Exclusivo.
+ *
+ * NOTA: O código foi adaptado para fechar todas as outras seções
+ * ao abrir uma nova, mantendo o comportamento "exclusivo" (um por vez)
+ * baseado no que o código original indicava.
+ */
 
-    // 1. Fecha todas as outras seções antes de abrir a atual
-    for (let i = 1; i <= 4; i++) {
-        const otherContent = document.getElementById('content' + i);
-        const otherIcon = document.getElementById('icon' + i);
-        
-        // Se for a seção atual, apenas pula a iteração
-        if (contentId === otherContent.id) continue;
-        
-        // Remove as classes de todas as outras seções
-        if (otherContent && otherIcon) {
-            // Mantenha o nome 'expanded' que foi usado no CSS no HTML
-            otherContent.classList.remove('expanded');
-            otherIcon.classList.remove('rotated');
+/**
+ * Alterna o estado de abertura/fechamento de um item do acordeão.
+ * Fecha todos os outros itens para garantir que apenas um esteja ativo.
+ * @param {string} sectionId - O ID da seção clicada (ex: 'section1').
+ */
+function toggleAccordion(sectionId) {
+    // Determina o número da seção (ex: 'section1' -> '1')
+    const sectionNumber = sectionId.slice(-1);
+
+    const content = document.getElementById('content' + sectionNumber);
+    const icon = document.getElementById('icon' + sectionNumber);
+    
+    // Lista de todas as seções para fechar as outras (ajustada para 4 seções)
+    const ALL_SECTION_NUMBERS = [1, 2, 3, 4];
+    
+    // 1. Fecha todas as outras seções
+    ALL_SECTION_NUMBERS.forEach(i => {
+        // Ignora a seção atual
+        if (i.toString() !== sectionNumber) {
+            const otherContent = document.getElementById('content' + i);
+            const otherIcon = document.getElementById('icon' + i);
+            
+            if (otherContent && otherIcon) {
+                otherContent.classList.remove('active');
+                otherIcon.classList.remove('rotated');
+            }
         }
-    }
+    });
 
-    // 2. Alterna a seção clicada (se já estiver aberta, fecha; se estiver fechada, abre)
+    // 2. Alterna a seção clicada
     if (content && icon) {
-        // Mantenha o nome 'expanded' que foi usado no CSS no HTML
-        content.classList.toggle('expanded');
+        content.classList.toggle('active');
         icon.classList.toggle('rotated');
     }
 }
 
-// Abre a primeira seção por padrão ao carregar a página
+/**
+ * Abre a primeira seção por padrão (Comportamento original mantido).
+ */
 document.addEventListener('DOMContentLoaded', function() {
-    // Chamada correta para abrir a primeira seção
-    toggleAccordion('content1', 'icon1'); 
+    // Usar um pequeno timeout ajuda a garantir que o efeito de transição
+    // (max-height) funcione corretamente na carga inicial.
+    setTimeout(() => {
+        // Verifica se a primeira seção existe antes de tentar abri-la
+        if (document.getElementById('content1')) {
+             toggleAccordion('section1');
+        }
+    }, 10);
 });
-
-// A função toggleAccordion no HTML (onclick) deve ser chamada assim:
-// onclick="toggleAccordion('content1', 'icon1')"
